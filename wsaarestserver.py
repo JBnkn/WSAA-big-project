@@ -4,3 +4,11 @@
 # If you cannot think of a project to do: 
 # Create a Web application in Flask that has a RESTful API, the application # should link to one or more database tables.
 # You should also create the web pages that can consume the API. I.e. performs CRUD operations on the data.
+
+from flask import Flask, request, jsonify, abort
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+        return "Hello world"
