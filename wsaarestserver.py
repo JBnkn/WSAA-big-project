@@ -12,23 +12,23 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-        return "Building my REST server"
+        return "Welcome to my REST server!"
 
 @app.route('/hello')
 def hello():
-        return "Hello I am building my REST server"
-
-@app.route('/testdb')
-def getall():
-        return jsonify(testdbDAO.getAll())
+        return "Hello I am building my REST server, more to come."
 
 @app.route('/hello/<name>')
 def helloname(name):
-        return f"Hello {name} I am building my REST server"
+        return f"Hello {name}, thanks for looking. I am building my REST server"
 
-@app.route('/test')
-def test():
-        return "Testing"
+@app.route('/getdb', methods=['GET'])
+def getall():
+        return jsonify(testdbDAO.getall())
+
+@app.route('/getdbid/<int:id>', methods=['GET'])
+def findbyid(id):
+        return jsonify(testdbDAO.getbyid(id))
 
 if __name__ == "__main__":
     app.run(debug = True)
