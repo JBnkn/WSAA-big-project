@@ -24,11 +24,11 @@ def helloname(name):
 
 @app.route('/getdb', methods=['GET'])
 def getall():
-        return jsonify(testdbDAO.getall())
+        return jsonify(testDAO.getall())
 
 @app.route('/getdbid/<int:id>', methods=['GET'])
 def findbyid(id):
-        return jsonify(testdbDAO.getbyid(id))
+        return jsonify(testDAO.getbyid(id))
 
 if __name__ == "__main__":
     app.run(debug = True)

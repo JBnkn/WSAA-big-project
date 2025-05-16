@@ -40,9 +40,20 @@ class testDAO:
         
         self.closeAll()
         return returnArray
+    
+    def getbyid(self, id):
+        cursor = self.getcursor()
+        sql="select * from testdb where id = %s"
+        values = (id,)
+
+        cursor.execute(sql, values)
+        result = cursor.fetchone()
+        returnvalue = self.convertToDictionary(result)
+        self.closeAll()
+        return returnvalue
 
     def convertToDictionary(self, row):
         keys = ['id', 'fname', 'lname', 'age', 'country']
         return dict(zip(keys, row))
     
-    testDAO = testDAO()
+testDAO = testDAO()
