@@ -17,6 +17,10 @@ def index():
 def hello():
         return "Hello I am building my REST server"
 
+@app.route('/hello/<name>')
+def helloname(name):
+        return f"Hello {name} I am building my REST server"
+
 @app.route('/test')
 def test():
         return "Testing"
