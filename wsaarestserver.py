@@ -6,6 +6,7 @@
 # You should also create the web pages that can consume the API. I.e. performs CRUD operations on the data.
 
 from flask import Flask, request, jsonify, abort
+import testdbDAO
 
 app = Flask(__name__)
 
@@ -17,9 +18,9 @@ def index():
 def hello():
         return "Hello I am building my REST server"
 
-@app.route('/ok')
-def ok():
-        return flask.send_file("files/thumbs_up.png")
+@app.route('/testdb')
+def getall():
+        return jsonify(testdbDAO.getAll())
 
 @app.route('/hello/<name>')
 def helloname(name):
