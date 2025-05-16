@@ -44,3 +44,5 @@ class testDAO:
     def convertToDictionary(self, row):
         keys = ['id', 'fname', 'lname', 'age', 'country']
         return dict(zip(keys, row))
+    
+    testDAO = testDAO()
