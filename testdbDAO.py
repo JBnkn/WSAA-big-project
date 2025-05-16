@@ -40,7 +40,20 @@ class testDAO:
         
         self.closeAll()
         return returnArray
-    
+
+    def getbycountry(self, country):
+        cursor = self.getcursor()
+        sql="select * from testdb where country = %s"
+        values = (country,)
+        cursor.execute(sql, values)
+        results = cursor.fetchall()
+        returnArray = []
+        for result in results:
+            returnArray.append(self.convertToDictionary(result))
+        
+        self.closeAll()
+        return returnArray
+
     def getbyid(self, id):
         cursor = self.getcursor()
         sql="select * from testdb where id = %s"

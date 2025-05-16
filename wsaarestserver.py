@@ -30,5 +30,9 @@ def getall():
 def findbyid(id):
         return jsonify(testDAO.getbyid(id))
 
+@app.route('/getdbid/<country>', methods=['GET'])
+def findbyid(id):
+        return jsonify(testDAO.getbycountry(country))
+
 if __name__ == "__main__":
     app.run(debug = True)
