@@ -26,12 +26,12 @@ def helloname(name):
 def getall():
         return jsonify(testDAO.getall())
 
-@app.route('/getdbid/<int:id>', methods=['GET'])
+@app.route('/getdb/<int:id>', methods=['GET'])
 def findbyid(id):
         return jsonify(testDAO.getbyid(id))
 
-@app.route('/getdbid/<country>', methods=['GET'])
-def findbyid(id):
+@app.route('/getdb/<country>', methods=['GET'])
+def findbycountry(country):
         return jsonify(testDAO.getbycountry(country))
 
 if __name__ == "__main__":
