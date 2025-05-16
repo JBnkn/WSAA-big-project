@@ -1,7 +1,7 @@
 import mysql.connector
 import config as cfg
 
-class TestDAO:
+class testDAO:
     connection=""
     cursor =''
     host=       ''

@@ -6,7 +6,7 @@
 # You should also create the web pages that can consume the API. I.e. performs CRUD operations on the data.
 
 from flask import Flask, request, jsonify, abort
-import testdbDAO
+from testdbDAO import testDAO
 
 app = Flask(__name__)
 
