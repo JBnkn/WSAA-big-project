@@ -13,6 +13,10 @@ app = Flask(__name__)
 def index():
         return "Building my REST server"
 
+@app.route('/hello')
+def hello():
+        return "Hello I am building my REST server"
+
 @app.route('/test')
 def test():
         return "Testing"
