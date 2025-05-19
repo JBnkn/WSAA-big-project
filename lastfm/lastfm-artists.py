@@ -17,4 +17,6 @@ response = requests.get(topartists)
 data = response.json()
 
 for artist in data['artists']['artist']:
-    print(artist['name'],"-",artist['playcount'])
+    print(artist['name'],"-",artist['mbid'])
+
+sql = "INSERT INTO artists"
