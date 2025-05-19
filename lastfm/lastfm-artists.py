@@ -16,4 +16,5 @@ topartists = f"http://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_
 response = requests.get(topartists)
 data = response.json()
 
-print(data)
+for artist in data['artists']['artist']:
+    print(artist['name'])
