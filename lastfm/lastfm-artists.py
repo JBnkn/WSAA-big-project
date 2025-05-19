@@ -17,4 +17,4 @@ response = requests.get(topartists)
 data = response.json()
 
 for artist in data['artists']['artist']:
-    print(artist['name'])
+    print(artist['name'],"-",artist['playcount'])
