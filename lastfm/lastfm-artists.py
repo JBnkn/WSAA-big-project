@@ -12,9 +12,9 @@ conn = mysql.connector.connect(
 )
 cursor = conn.cursor()
 
-# pull top 200 artists from lastfm api using params
-top200 = f"http://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key={api_key}&format=json&limit=200"
-response = requests.get(top200)
+# pull top 50 artists from lastfm api using params
+top50 = f"http://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key={api_key}&format=json&limit=50"
+response = requests.get(top50)
 data = response.json()
 
 # extract artist names from json response
@@ -23,11 +23,14 @@ for artist in data['artists']['artist']:
     playcount = int(artist['playcount'])
     listeners = int(artist['listeners'])
     url = artist['url']
-
+    mbid = artist['mbid']
+    
 # sql query to pull into database
 # will update playcount and listeners if artist already exists
-    sql = "INSERT INTO artists (name, playcount, listeners, url) VALUES (%s, %s, %s, %s) ON DUPLICATE KEY UPDATE playcount=VALUES(playcount), listeners=VALUES(listeners)"
-    cursor.execute(sql, (name, playcount, listeners, url))
+    if not mbid.strip():
+        continue
+    sql = "INSERT INTO artists (name, playcount, listeners, url, mbid) VALUES (%s, %s, %s, %s, %s) ON DUPLICATE KEY UPDATE playcount=VALUES(playcount), listeners=VALUES(listeners)"
+    cursor.execute(sql, (name, playcount, listeners, url, mbid))
 
 conn.commit()
 cursor.close()
