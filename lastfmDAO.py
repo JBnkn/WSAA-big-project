@@ -66,16 +66,15 @@ class lastfmDAO:
         self.closeAll()
         return returnArray
 
-    # def getbyid(self, id):
+    def create(self, artist):
         cursor = self.getcursor()
-        sql="select * from ar where id = %s"
-        values = (id,)
-
+        sql="insert into artist (name, playcount, listeners, url, mbid) values (%s,%s,%s,%s,%s)"
+        values = (artist.get("name"), artist.get("playcount"), artist.get("listeners"), artist.get("url"), artist.get("mbid"))
         cursor.execute(sql, values)
-        result = cursor.fetchone()
-        returnvalue = self.convertToDictionary(result)
+
+        self.connection.commit()
         self.closeAll()
-        return returnvalue
+        return artist
 
     def convertToArtists(self, row):
         keys = ['name', 'playcount', 'listeners', 'url', 'mbid']

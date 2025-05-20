@@ -30,5 +30,31 @@ def getalbums():
 def topalbums(artist):
         return jsonify(lastfmDAO.gettopalbums(artist))
 
+@app.route('/createartist', methods=['POST'])
+def createartist():
+        jsonstring = request.json
+        artist = {}
+        if "name" not in jsonstring:
+                abort(403)
+        artist["name"] = jsonstring["name"]
+
+        if "playcount" not in jsonstring:
+                abort(403)
+        artist["playcount"] = jsonstring["playcount"]
+
+        if "listeners" not in jsonstring:
+                abort(403)
+        artist["listeners"] = jsonstring["listeners"]
+
+        if "url" not in jsonstring:
+                abort(403)
+        artist["url"] = jsonstring["url"]  
+
+        if "mbid" not in jsonstring:
+                abort(403)
+        artist["mbid"] = jsonstring["mbid"]      
+        
+        return jsonify(lastfmDAO.create(artist))
+
 if __name__ == "__main__":
     app.run(debug = True)
