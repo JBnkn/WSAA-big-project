@@ -32,8 +32,21 @@ for artist in data['artists']['artist']:
     sql = "INSERT INTO artists (name, playcount, listeners, url, mbid) VALUES (%s, %s, %s, %s, %s) ON DUPLICATE KEY UPDATE playcount=VALUES(playcount), listeners=VALUES(listeners)"
     cursor.execute(sql, (name, playcount, listeners, url, mbid))
 
+# pull albums using album API with artist mbid
+    album_url = f"http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&mbid={mbid}&api_key={api_key}&format=json"
+    album_response = requests.get(album_url)
+    album_data = album_response.json()
+
+    for album in album_data['topalbums']['album']:
+        album_name = album['name']
+        albumartist = album['artist']['name']
+        album_playcount = int(album['playcount'])
+        album_url = album['url']
+        albumartist_mbid = album['artist']['mbid']
+
+        albumsql = "INSERT INTO albums (name, artist, playcount, url, artistmbid) VALUES (%s, %s, %s, %s, %s) ON DUPLICATE KEY UPDATE playcount=VALUES(playcount)"
+        cursor.execute(albumsql, (album_name, albumartist, album_playcount, album_url, albumartist_mbid))
+
 conn.commit()
 cursor.close()
 conn.close()
-
-print("Artist DB update successful")
