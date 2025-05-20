@@ -24,5 +24,13 @@ for artist in data['artists']['artist']:
     listeners = int(artist['listeners'])
     url = artist['url']
 
-# work on sql query
-    sql = "INSERT INTO artists (mbid, name, playcount, listeners, url) VALUES (%s, %s, %s, %s, %s)
+# sql query to pull into database
+# will update playcount and listeners if artist already exists
+    sql = "INSERT INTO artists (name, playcount, listeners, url) VALUES (%s, %s, %s, %s) ON DUPLICATE KEY UPDATE playcount=VALUES(playcount), listeners=VALUES(listeners)"
+    cursor.execute(sql, (name, playcount, listeners, url))
+
+conn.commit()
+cursor.close()
+conn.close()
+
+print("Artist DB update successful")
