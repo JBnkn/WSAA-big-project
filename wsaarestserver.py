@@ -14,10 +14,6 @@ app = Flask(__name__)
 def index():
         return "Welcome to my REST server!"
 
-@app.route('/hello')
-def hello():
-        return "Hello I am building my REST server, more to come."
-
 @app.route('/hello/<name>')
 def helloname(name):
         return f"Hello {name}, thanks for looking. I am building my REST server"
@@ -30,13 +26,9 @@ def getartists():
 def getalbums():
         return jsonify(lastfmDAO.getallalbums())
 
-@app.route('/getdb/<int:id>', methods=['GET'])
-def findbyid(id):
-        return jsonify(lastfmDAO.getbyid(id))
-
-@app.route('/getdb/<artist>', methods=['GET'])
-def findbyartist(artist):
-        return jsonify(lastfmDAO.getbyartist(artist))
+@app.route('/topalbums/<artist>', methods=['GET'])
+def topalbums(artist):
+        return jsonify(lastfmDAO.gettopalbums(artist))
 
 if __name__ == "__main__":
     app.run(debug = True)
