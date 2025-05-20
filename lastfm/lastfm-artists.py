@@ -19,7 +19,10 @@ data = response.json()
 
 # extract artist names from json response
 for artist in data['artists']['artist']:
-    print(artist['name'],"-",artist['playcount'])
+    name = artist['name']
+    playcount = int(artist['playcount'])
+    listeners = int(artist['listeners'])
+    url = artist['url']
 
 # work on sql query
-# sql = "INSERT INTO artists"
+    sql = "INSERT INTO artists (mbid, name, playcount, listeners, url) VALUES (%s, %s, %s, %s, %s)
