@@ -22,17 +22,21 @@ def hello():
 def helloname(name):
         return f"Hello {name}, thanks for looking. I am building my REST server"
 
-@app.route('/getdb', methods=['GET'])
-def getall():
-        return jsonify(testDAO.getall())
+@app.route('/getartists', methods=['GET'])
+def getartists():
+        return jsonify(lastfmDAO.getallartists())
+
+@app.route('/getalbums', methods=['GET'])
+def getalbums():
+        return jsonify(lastfmDAO.getallalbums())
 
 @app.route('/getdb/<int:id>', methods=['GET'])
 def findbyid(id):
-        return jsonify(testDAO.getbyid(id))
+        return jsonify(lastfmDAO.getbyid(id))
 
-@app.route('/getdb/<country>', methods=['GET'])
-def findbycountry(country):
-        return jsonify(testDAO.getbycountry(country))
+@app.route('/getdb/<artist>', methods=['GET'])
+def findbyartist(artist):
+        return jsonify(lastfmDAO.getbyartist(artist))
 
 if __name__ == "__main__":
     app.run(debug = True)

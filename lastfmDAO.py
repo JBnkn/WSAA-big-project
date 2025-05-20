@@ -36,24 +36,24 @@ class lastfmDAO:
         results = cursor.fetchall()
         returnArray = []
         for result in results:
-            returnArray.append(self.convertToDictionary(result))
+            returnArray.append(self.convertToArtists(result))
         
         self.closeAll()
         return returnArray
     
-    def getallabums(self):
+    def getallalbums(self):
         cursor = self.getcursor()
         sql="select * from albums"
         cursor.execute(sql)
         results = cursor.fetchall()
         returnArray = []
         for result in results:
-            returnArray.append(self.convertToDictionary(result))
+            returnArray.append(self.convertToAlbums(result))
         
         self.closeAll()
         return returnArray
 
-    def getbycountry(self, artist):
+    def getbyartist(self, artist):
         cursor = self.getcursor()
         sql="select * from albums where artist = %s"
         values = (artist,)
@@ -61,7 +61,7 @@ class lastfmDAO:
         results = cursor.fetchall()
         returnArray = []
         for result in results:
-            returnArray.append(self.convertToDictionary(result))
+            returnArray.append(self.convertToAlbums(result))
         
         self.closeAll()
         return returnArray
@@ -77,8 +77,12 @@ class lastfmDAO:
         self.closeAll()
         return returnvalue
 
-    def convertToDictionary(self, row):
-        keys = ['id', 'fname', 'lname', 'age', 'country']
+    def convertToArtists(self, row):
+        keys = ['name', 'playcount', 'listeners', 'url', 'mbid']
+        return dict(zip(keys, row))
+    
+    def convertToAlbums(self, row):
+        keys = ['id', 'name', 'artist', 'playcount', 'url', 'artistmbid']
         return dict(zip(keys, row))
     
 lastfmDAO = lastfmDAO()
