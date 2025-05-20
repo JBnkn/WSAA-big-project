@@ -50,3 +50,4 @@ for artist in data['artists']['artist']:
 conn.commit()
 cursor.close()
 conn.close()
+

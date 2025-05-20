@@ -1,7 +1,7 @@
 import mysql.connector
 import config as cfg
 
-class testDAO:
+class lastfmDAO:
     connection=""
     cursor =''
     host=       ''
@@ -29,9 +29,21 @@ class testDAO:
         self.connection.close()
         self.cursor.close()
 
-    def getall(self):
+    def getallartists(self):
         cursor = self.getcursor()
-        sql="select * from testdb"
+        sql="select * from artists"
+        cursor.execute(sql)
+        results = cursor.fetchall()
+        returnArray = []
+        for result in results:
+            returnArray.append(self.convertToDictionary(result))
+        
+        self.closeAll()
+        return returnArray
+    
+    def getallabums(self):
+        cursor = self.getcursor()
+        sql="select * from albums"
         cursor.execute(sql)
         results = cursor.fetchall()
         returnArray = []
@@ -41,10 +53,10 @@ class testDAO:
         self.closeAll()
         return returnArray
 
-    def getbycountry(self, country):
+    def getbycountry(self, artist):
         cursor = self.getcursor()
-        sql="select * from testdb where country = %s"
-        values = (country,)
+        sql="select * from albums where artist = %s"
+        values = (artist,)
         cursor.execute(sql, values)
         results = cursor.fetchall()
         returnArray = []
@@ -54,9 +66,9 @@ class testDAO:
         self.closeAll()
         return returnArray
 
-    def getbyid(self, id):
+    # def getbyid(self, id):
         cursor = self.getcursor()
-        sql="select * from testdb where id = %s"
+        sql="select * from ar where id = %s"
         values = (id,)
 
         cursor.execute(sql, values)
@@ -69,4 +81,4 @@ class testDAO:
         keys = ['id', 'fname', 'lname', 'age', 'country']
         return dict(zip(keys, row))
     
-testDAO = testDAO()
+lastfmDAO = lastfmDAO()
