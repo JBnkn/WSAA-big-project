@@ -6,9 +6,11 @@
 # You should also create the web pages that can consume the API. I.e. performs CRUD operations on the data.
 
 from flask import Flask, request, jsonify, abort
+from flask_cors import CORS
 from lastfmDAO import lastfmDAO
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/')
 def index():
