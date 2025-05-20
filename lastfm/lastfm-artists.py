@@ -12,9 +12,9 @@ conn = mysql.connector.connect(
 )
 cursor = conn.cursor()
 
-# pull top 50 artists from lastfm api using params
-top50 = f"http://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key={api_key}&format=json&limit=50"
-response = requests.get(top50)
+# pull top 500 artists from lastfm api using params
+top500 = f"http://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key={api_key}&format=json&limit=500"
+response = requests.get(top500)
 data = response.json()
 
 # extract artist names from json response
