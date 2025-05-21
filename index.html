@@ -3,9 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- CSS only --> 
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous"> 
   <title>Last.fm DB</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 </head>
 <body>
-  
+  <div><h1>Artists</h1></div>
+  <div><h1>Albums</h1></div>
 </body>
+<script>
+    function getartists(callback){
+      $.ajax({
+        "url":"http://localhost:5000/getartists",
+        "method":"GET",
+        "data":"",
+        "datatype":"JSON",
+        "success":function(result){
+          //console.log(result);
+          callback(result)
+        },
+        "error":function(xhr,status,error){
+          console.log("error: "+status+" msg:"+error);
+        }
+    });
+  }
+  
+  function processgetartists(result){
+    console.log("In Process")
+    console.log(result)
+  }
+  getartists(processgetall)
+</script>
 </html>
