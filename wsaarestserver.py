@@ -24,10 +24,6 @@ def helloname(name):
 def getartists():
         return jsonify(lastfmDAO.getallartists())
 
-@app.route('/getalbums', methods=['GET'])
-def getalbums():
-        return jsonify(lastfmDAO.getallalbums())
-
 @app.route('/topalbums/<artist>', methods=['GET'])
 def topalbums(artist):
         return jsonify(lastfmDAO.gettopalbums(artist))

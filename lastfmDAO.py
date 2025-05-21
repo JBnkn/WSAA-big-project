@@ -31,7 +31,7 @@ class lastfmDAO:
 
     def getallartists(self):
         cursor = self.getcursor()
-        sql="select * from artists"
+        sql="select * from artists order by playcount desc"
         cursor.execute(sql)
         results = cursor.fetchall()
         returnArray = []
@@ -41,18 +41,6 @@ class lastfmDAO:
         self.closeAll()
         return returnArray
     
-    def getallalbums(self):
-        cursor = self.getcursor()
-        sql="select * from albums"
-        cursor.execute(sql)
-        results = cursor.fetchall()
-        returnArray = []
-        for result in results:
-            returnArray.append(self.convertToAlbums(result))
-        
-        self.closeAll()
-        return returnArray
-
     def gettopalbums(self, artist):
         cursor = self.getcursor()
         sql="select * from albums where artist = %s order by playcount desc limit 10"

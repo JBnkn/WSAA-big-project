@@ -9,30 +9,83 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 </head>
 <body>
-  <div><h1>Artists</h1></div>
-  <div><h1>Albums</h1></div>
+  <div id="header" class="text-center my-4"><h1>Last.fm Database</h1><br/>
+  <div>This interface will allow you to view the current top artists on <a href="https://www.last.fm/home">Last.fm</a> based on playcounts. You can also create, update, or delete an artist.</div>
+  </div></div>
+  <div id="homepage" class="text-center my-4" style="display:none" onclick="homepage()"><button><h2>Return to Homepage</h2></button></div>
+  <div id="topartists" class="text-center my-4" onclick="showartists()"><button><h2>View Top Artists</h2></button></div>
+  <div id="artistcreate" class="text-center my-4"><button><h2>Create Artist</h2></button></div>
+  <div id="artistupdate" class="text-center my-4"><button><h2>Update Artist</h2></button></div>
+  <div id="artistdelete" class="text-center my-4"><button><h2>Delete Artist</h2></button></div>
+  <div id="artisttable" class="container mt-4" style="display:none">
+    <h1 class="text-center my-4">Artists</h1>
+    <table class="table table-striped" id="artistsTable">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Playcount</th>
+        <th>Listeners</th>
+        <th>URL</th>
+        <th>MBID</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</div>
 </body>
+
 <script>
-    function getartists(callback){
-      $.ajax({
-        "url":"http://localhost:5000/getartists",
-        "method":"GET",
-        "data":"",
-        "datatype":"JSON",
-        "success":function(result){
-          //console.log(result);
-          callback(result)
-        },
-        "error":function(xhr,status,error){
-          console.log("error: "+status+" msg:"+error);
-        }
+  function getall(callback){
+    $.ajax({
+      url: "http://localhost:5000/getartists",
+      method: "GET",
+      dataType: "json",
+      success: function(result){
+        callback(result);
+      },
+      error: function(xhr, status, error){
+        console.log("error: " + status + " msg: " + error);
+      }
     });
   }
-  
-  function processgetartists(result){
-    console.log("In Process")
-    console.log(result)
+
+  function processgetall(artists){
+    const tableBody = $("#artistsTable tbody");
+    tableBody.empty();
+
+    artists.forEach(artist => {
+      const row = `
+        <tr>
+          <td>${artist.name}</td>
+          <td>${artist.playcount}</td>
+          <td>${artist.listeners}</td>
+          <td><a href="${artist.url}" target="_blank">Link</a></td>
+          <td>${artist.mbid}</td>
+        </tr>
+      `;
+      tableBody.append(row);
+    });
   }
-  getartists(processgetall)
+
+  function showartists(){
+    document.getElementById('topartists').style.display='none'
+    document.getElementById('artisttable').style.display='block'
+    document.getElementById('artistcreate').style.display='none'
+    document.getElementById('artistupdate').style.display='none'
+    document.getElementById('artistdelete').style.display='none'
+    document.getElementById('homepage').style.display='block'
+  }
+
+  function homepage(){
+    document.getElementById('topartists').style.display='block'
+    document.getElementById('artisttable').style.display='none'
+    document.getElementById('artistcreate').style.display='block'
+    document.getElementById('artistupdate').style.display='block'
+    document.getElementById('artistdelete').style.display='block'
+    document.getElementById('homepage').style.display='none'
+  }
+
+  getall(processgetall);
 </script>
 </html>
