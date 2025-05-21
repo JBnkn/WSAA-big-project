@@ -1,37 +1,11 @@
-<html>
-  <head>
-    <title> Last FM DB </title>
-    <meta charset="UTF-8">
-    <script>
-      var baseurl = "http://localhost:5000/getartists";
-      function loadArtists(){
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("GET", baseurl + "/all", true);
-        xmlhttp.onreadystatechange = function() {
-          if(xmlhttp.readyState === 4 && xmlhttp.status === 200){
-            var artists = JSON.parse(xmlhttp.responseText);
-            var tbltop = `<table border="1">
-              <tr><th>Name</th><th>Listeners</th><th>Playcount</th><th>MBID</th><th>URL</th></tr>`;
-            var main = "";
-            for (var i = 0; i < artists.length; i++){
-              main += "<tr><td>" + artists[i].name + "</td><td>" +
-                               artists[i].listeners + "</td><td>" +
-                               artists[i].playcount + "</td><td>" +
-                               artists[i].mbid + "</td><td><a href='" +
-                               artists[i].url + "' target='_blank'>Link</a></td></tr>";
-            }
-            var tblbottom = "</table>";
-            var tbl = tbltop + main + tblbottom;
-            document.getElementById("artistsinfo").innerHTML = tbl;
-          }
-        };
-        xmlhttp.send();
-      }
-      window.onload = loadArtists;
-    </script>
-  </head>
-  <body>
-    <h1>Artist Information</h1>
-    <div id="artistsinfo">Loading...</div>
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Last.fm DB</title>
+</head>
+<body>
+  
+</body>
 </html>
