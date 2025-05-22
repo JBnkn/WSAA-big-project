@@ -35,24 +35,41 @@ def createartist():
         if "name" not in jsonstring:
                 abort(403)
         artist["name"] = jsonstring["name"]
-
         if "playcount" not in jsonstring:
                 abort(403)
         artist["playcount"] = jsonstring["playcount"]
-
         if "listeners" not in jsonstring:
                 abort(403)
         artist["listeners"] = jsonstring["listeners"]
-
         if "url" not in jsonstring:
                 abort(403)
         artist["url"] = jsonstring["url"]  
-
         if "mbid" not in jsonstring:
                 abort(403)
         artist["mbid"] = jsonstring["mbid"]      
         
         return jsonify(lastfmDAO.create(artist))
+
+@app.route('/artist/<mbid>', methods=['PUT'])
+def update(mbid):
+        jsonstring = request.json
+        artist = {}
+        if "name" in jsonstring:
+                artist["name"] = jsonstring["name"]
+        if "playcount" in jsonstring:
+                artist["playcount"] = jsonstring["playcount"]
+        if "listeners" in jsonstring:
+                artist["listeners"] = jsonstring["listeners"]  
+        if "url" in jsonstring:
+                artist["url"] = jsonstring["url"]
+        if "mbid" in jsonstring:
+                artist["mbid"] = jsonstring["mbid"]   
+        return jsonify(lastfmDAO.update(mbid, artist))
+
+@app.route('/deleteartist/<mbid>', methods=['DELETE'])
+def deleteartist(mbid):
+        artist_name = lastfmDAO.delete(mbid)
+        return jsonify({ "message": f"Deleted {artist_name} from last.fm DB" })
 
 if __name__ == "__main__":
     app.run(debug = True)

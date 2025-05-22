@@ -56,13 +56,32 @@ class lastfmDAO:
 
     def create(self, artist):
         cursor = self.getcursor()
-        sql="insert into artist (name, playcount, listeners, url, mbid) values (%s,%s,%s,%s,%s)"
+        sql="insert into artists (name, playcount, listeners, url, mbid) values (%s,%s,%s,%s,%s)"
         values = (artist.get("name"), artist.get("playcount"), artist.get("listeners"), artist.get("url"), artist.get("mbid"))
         cursor.execute(sql, values)
-
         self.connection.commit()
         self.closeAll()
         return artist
+    
+    def update(self, mbid, artist):
+        cursor = self.getcursor()
+        sql="update artists set name= %s,playcount=%s, listeners=%s, url=%s where mbid = %s"
+        values = (artist.get("name"), artist.get("playcount"), artist.get("listeners"), artist.get("url"), mbid)
+        cursor.execute(sql, values)
+        self.connection.commit()
+        self.closeAll()
+
+    def delete(self, mbid):
+        cursor = self.getcursor()
+        sql1 = "select name from artists WHERE mbid = %s"
+        cursor.execute(sql1, (mbid,))
+        result = cursor.fetchone()
+        artistname = result[0]
+        sql2 = "delete from artists where mbid = %s"
+        cursor.execute(sql2, (mbid,))
+        self.connection.commit()
+        self.closeAll()
+        return artistname
 
     def convertToArtists(self, row):
         keys = ['name', 'playcount', 'listeners', 'url', 'mbid']

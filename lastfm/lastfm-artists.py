@@ -27,6 +27,7 @@ for artist in data['artists']['artist']:
     
 # sql query to pull into database
 # will update playcount and listeners if artist already exists
+# using mbid as primary key so will skip any blanks
     if not mbid.strip():
         continue
     sql = "INSERT INTO artists (name, playcount, listeners, url, mbid) VALUES (%s, %s, %s, %s, %s) ON DUPLICATE KEY UPDATE playcount=VALUES(playcount), listeners=VALUES(listeners)"
@@ -50,4 +51,3 @@ for artist in data['artists']['artist']:
 conn.commit()
 cursor.close()
 conn.close()
-
