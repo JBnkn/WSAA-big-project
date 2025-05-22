@@ -20,7 +20,7 @@
     <button onclick="homepage()" id="homepageBtn" class="btn btn-secondary mx-2" style="display:none;">Return to Homepage</button>
   </div>
   <div class="text-center my-4">
-    <button class="btn btn-success mx-2">Create Artist</button>
+    <button class="btn btn-success mx-2" onclick="showCreateForm()">Create Artist</button>
     <button class="btn btn-warning mx-2">Update Artist</button>
     <button class="btn btn-danger mx-2">Delete Artist</button>
   </div>
@@ -59,6 +59,37 @@
     </div>
   </div>
 
+  <div id="createForm" class="container mt-4" style="display:none;">
+  <h3>Create Artist</h3>
+      <div class="mt-2">
+      When adding a new artist, please ensure you're using a valid MBID (<a href="https://musicbrainz.org/doc/MusicBrainz_Identifier" target="_blank">MusicBrainz Identifier</a>), which can be found at <a href="https://musicbrainz.org/" target="_blank">musicbrainz.org</a>.<br/>
+    </div>
+  <form id="artistForm">
+    <div class="mb-3">
+      <label for="name" class="form-label">Artist Name</label>
+      <input type="text" class="form-control" id="name" required>
+    </div>
+    <div class="mb-3">
+      <label for="playcount" class="form-label">Playcount</label>
+      <input type="number" class="form-control" id="playcount" required>
+    </div>
+    <div class="mb-3">
+      <label for="listeners" class="form-label">Listeners</label>
+      <input type="number" class="form-control" id="listeners" required>
+    </div>
+    <div class="mb-3">
+      <label for="url" class="form-label">URL</label>
+      <input type="url" class="form-control" id="url" required>
+    </div>
+    <div class="mb-3">
+      <label for="mbid" class="form-label">MBID</label>
+      <input type="text" class="form-control" id="mbid" required>
+    </div>
+    <button type="submit" class="btn btn-success">Create Artist</button>
+    <button type="button" class="btn btn-secondary" onclick="hideCreateForm()">Cancel</button>
+  </form>
+</div>
+
   <script>
     function getall(callback){
       $.ajax({
@@ -78,11 +109,11 @@
       const tableBody = $("#artistsTable tbody");
       tableBody.empty();
 
-      artists.foreach(artist => {
+      artists.forEach(artist => {
         const safeName = artist.name.replace(/'/g, "\\'");
         const row = `
           <tr>
-            <td><a href="#" onclick="showTopAlbums('${safeName}')">${artist.name}</a></td>
+            <td><a href="#" onclick="showtopalbums('${safeName}')">${artist.name}</a></td>
             <td>${artist.playcount}</td>
             <td>${artist.listeners}</td>
             <td><a href="${artist.url}" target="_blank">Link</a></td>
@@ -106,7 +137,7 @@
           $("#artisttable").hide();
           $("#albumtable").show();
 
-          albums.foreach(album => {
+          albums.forEach(album => {
             const row = `
               <tr>
                 <td>${album.name}</td>
@@ -141,9 +172,47 @@
       $("#artisttable").show();
     }
 
+    function showCreateForm() {
+      $("#createForm").show();
+      $("#artisttable").hide();
+      $("#albumtable").hide();
+    }
+
+    function hideCreateForm() {
+      $("#createForm").hide();
+    }
+
     $(document).ready(function() {
       getall(processgetall);
     });
+
+    $("#artistForm").on("submit", function(e) {
+  e.preventDefault();
+
+  const artistData = {
+    name: $("#name").val(),
+    playcount: parseInt($("#playcount").val()),
+    listeners: parseInt($("#listeners").val()),
+    url: $("#url").val(),
+    mbid: $("#mbid").val()
+  };
+
+  $.ajax({
+    url: "http://localhost:5000/createartist",
+    method: "POST",
+    contentType: "application/json",
+    data: JSON.stringify(artistData),
+    success: function(response) {
+      alert("Artist created successfully!");
+      hideCreateForm();
+      showartists(); // Refresh artist table
+    },
+    error: function(xhr, status, error) {
+      alert("Error creating artist: " + error);
+    }
+  });
+});
+
   </script>
 </body>
 </html>
