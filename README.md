@@ -1,12 +1,28 @@
 # Last.fm Database Interface
 **by Joseph Benkanoun**
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/d/d4/Lastfm_logo.svg" alt="LastFM Logo" width="600"/>
+<img src="https://upload.wikimedia.org/wikipedia/commons/d/d4/Lastfm_logo.svg" alt="LastFM Logo" width="400"/>
 
-This repository contains my big project for the 2025 [Web Services and Applications](https://www.atu.ie/courses/higher-diploma-in-science-data-analytics#:~:text=Web%20Services%20and%20Applications) module as part of the [Higher Diploma in Science in Data Analytics](https://www.gmit.ie/higher-diploma-in-science-in-computing-in-data-analytics) at ATU. 
+This repository contains my big project for the 2025 [Web Services and Applications](https://www.atu.ie/courses/higher-diploma-in-science-data-analytics#:~:text=Web%20Services%20and%20Applications) module as part of the [Higher Diploma in Science in Data Analytics](https://www.gmit.ie/higher-diploma-in-science-in-computing-in-data-analytics) at ATU.
+
+### Module Description
+
+> An introduction to and overview of web applications and services – accessing and consuming them and their common architectures.
+
+### Learning Outcomes
+
+> Describe common architectures of web services and web applications.
+
+> Create a simple web service.
+
+> Programmatically access a web service.
+
+> Construct a data set by querying a web service.
 
 ## Project Description
-https://upload.wikimedia.org/wikipedia/commons/d/d4/Lastfm_logo.svg
+[Last.fm](https://www.last.fm/) is a popular online music website that tracks people's song listening habits. Founded in (2002 before the rise on online music streaming), users could initially download a plug-in that would connect to a music playing tool such as iTunes, which would then feed their plays to their last.fm user account, allowing them to see their top artists and listening trends.
+
+For this project, I decided to utilise the last.fm API to download the top artists and their albums into a local MySQL database. I then used that database to build out my Flask server to create an interactive page where users can see the current top artists in one place, and review their most popular albums. The interface also allows for creating, updating, and deleting artists to showcase a range of CRUD operations.
 
 ## Potential Improvements
 - automate monthly pull from last.fm API using cron to update top artists / playcounts / listeners
