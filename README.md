@@ -25,7 +25,7 @@ This repository contains my big project for the 2025 [Web Services and Applicati
 For this project, I decided to utilise the [last.fm API](https://www.last.fm/api) to download the top artists and their albums into a local MySQL database. I then used that database to build out my Flask server and DAO to create an interactive page where users can see the current top artists in one place, and review their most popular albums. The interface also allows for creating, updating, and deleting artists to showcase a range of CRUD operations.
 
 ## Repository Structure
-''' bash
+``` bash
 WSAA-big-project/
 ├── lastfm/
 │   └── lastfm-artists.py    # pulls data from last.fm API to local MySQL database
@@ -34,6 +34,7 @@ WSAA-big-project/
 ├── index.html               # HTML and AJAX interfact
 ├── lastfmDAO.py             # Database Access Object - functions to call from MySQL DB
 └── wsaarestserver.py        # RESTful API server - Flask functions
+```
 
 ## Requirements
 
