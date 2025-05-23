@@ -69,9 +69,9 @@ CREATE TABLE albums (
 ## API Endpoints
 
 ## Potential Improvements
-- automate monthly pull from last.fm API using cron to update top artists / playcounts / listeners
-- pull top albums from last.fm API when user adds new artist
-- add CRUD functionality around album DB
+- Automation: I could implement a scheduled task using <code>cron</code> to automatically retrieve and update top artists, playcounts, and listener data from the Last.fm API on a monthly basis without need for running <code>lastfm-artists.py</code> manually.
+- I could improve the system to automatically call the Last.fm API and retrieve the top albums for an artist whenever a new artist is added to the database manually by the user (as present this is only occuring as part of the total call to the Last.fm API).
+- This system currently only has CRUD functionality for the Artists DB - I could widen the scope to add these functions for the Albums DB.
 
 ## References
 - https://www.youtube.com/watch?v=AgVqsmz-ZW4
