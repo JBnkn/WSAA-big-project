@@ -8,23 +8,30 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 </head>
 <body>
+
+  <!-- Header -->
   <div id="header" class="text-center my-4">
     <h1>Last.fm Database</h1>
-    <div class="mt-2">
-      This interface allows you to view the current top artists (and their top albums) on <a href="https://www.last.fm/home" target="_blank">Last.fm</a> based on playcounts.
+    <p>
+      View the top artists and their albums from <a href="https://www.last.fm/home" target="_blank">Last.fm</a>.
       You can also create, update, or delete an artist.
-    </div>
+    </p>
   </div>
+
+  <!-- Buttons -->
   <div class="text-center my-4">
     <button onclick="showartists()" class="btn btn-primary mx-2">View Top Artists</button>
     <button onclick="homepage()" id="homepageBtn" class="btn btn-secondary mx-2" style="display:none;">Return to Homepage</button>
   </div>
+
   <div class="text-center my-4">
     <button class="btn btn-success mx-2" onclick="showCreateForm()">Create Artist</button>
-    <button class="btn btn-warning mx-2">Update Artist</button>
-    <button class="btn btn-danger mx-2">Delete Artist</button>
+    <button class="btn btn-warning mx-2" id="updateBtn">Update Artist</button>
+    <button class="btn btn-danger mx-2" id="deleteBtn">Delete Artist</button>
   </div>
- <div id="artisttable" class="container mt-4" style="display:none;">
+
+  <!-- Artist Table -->
+  <div id="artisttable" class="container mt-4" style="display:none;">
     <h2 class="text-center my-4">Top Artists</h2>
     <table class="table table-striped" id="artistsTable">
       <thead>
@@ -36,11 +43,11 @@
           <th>MBID</th>
         </tr>
       </thead>
-      <tbody>
-      </tbody>
+      <tbody></tbody>
     </table>
   </div>
 
+  <!-- Album Table -->
   <div id="albumtable" class="container mt-4" style="display:none;">
     <h2 class="text-center my-4" id="albumtitle">Top Albums</h2>
     <table class="table table-bordered">
@@ -51,67 +58,105 @@
           <th>URL</th>
         </tr>
       </thead>
-      <tbody id="albumBody">
-      </tbody>
+      <tbody id="albumBody"></tbody>
     </table>
     <div class="text-center my-4">
       <button onclick="backtoartists()" class="btn btn-outline-primary">Back to Artist List</button>
     </div>
   </div>
 
+  <!-- Create Form -->
   <div id="createForm" class="container mt-4" style="display:none;">
-  <h3>Create Artist</h3>
-      <div class="mt-2">
-      When adding a new artist, please ensure you're using a valid MBID (<a href="https://musicbrainz.org/doc/MusicBrainz_Identifier" target="_blank">MusicBrainz Identifier</a>), which can be found at <a href="https://musicbrainz.org/" target="_blank">musicbrainz.org</a>.<br/>
-    </div>
-  <form id="artistForm">
-    <div class="mb-3">
-      <label for="name" class="form-label">Artist Name</label>
-      <input type="text" class="form-control" id="name" required>
-    </div>
-    <div class="mb-3">
-      <label for="playcount" class="form-label">Playcount</label>
-      <input type="number" class="form-control" id="playcount" required>
-    </div>
-    <div class="mb-3">
-      <label for="listeners" class="form-label">Listeners</label>
-      <input type="number" class="form-control" id="listeners" required>
-    </div>
-    <div class="mb-3">
-      <label for="url" class="form-label">URL</label>
-      <input type="url" class="form-control" id="url" required>
-    </div>
-    <div class="mb-3">
-      <label for="mbid" class="form-label">MBID</label>
-      <input type="text" class="form-control" id="mbid" required>
-    </div>
-    <button type="submit" class="btn btn-success">Create Artist</button>
-    <button type="button" class="btn btn-secondary" onclick="hideCreateForm()">Cancel</button>
-  </form>
-</div>
+    <h3>Create Artist</h3>
+    <p>
+      Use a valid MBID from <a href="https://musicbrainz.org/" target="_blank">musicbrainz.org</a>.
+    </p>
+    <form id="artistForm">
+      <div class="mb-3">
+        <label for="name" class="form-label">Artist Name</label>
+        <input type="text" class="form-control" id="name" required>
+      </div>
+      <div class="mb-3">
+        <label for="playcount" class="form-label">Playcount</label>
+        <input type="number" class="form-control" id="playcount" required>
+      </div>
+      <div class="mb-3">
+        <label for="listeners" class="form-label">Listeners</label>
+        <input type="number" class="form-control" id="listeners" required>
+      </div>
+      <div class="mb-3">
+        <label for="url" class="form-label">URL</label>
+        <input type="url" class="form-control" id="url" required>
+      </div>
+      <div class="mb-3">
+        <label for="mbid" class="form-label">MBID</label>
+        <input type="text" class="form-control" id="mbid" required>
+      </div>
+      <button type="submit" class="btn btn-success">Create Artist</button>
+      <button type="button" class="btn btn-secondary" onclick="hideCreateForm()">Cancel</button>
+    </form>
+  </div>
 
+  <!-- Update Form -->
+  <div id="updateFormContainer" class="container mt-5" style="display:none;">
+    <h3 class="text-center mb-4">Update Artist</h3>
+    <form id="updateForm">
+      <div class="mb-3">
+        <label for="updateMbid" class="form-label">MBID (required)</label>
+        <input type="text" class="form-control" id="updateMbid" required>
+      </div>
+      <div class="mb-3">
+        <label for="updateName" class="form-label">Artist Name</label>
+        <input type="text" class="form-control" id="updateName">
+      </div>
+      <div class="mb-3">
+        <label for="updatePlaycount" class="form-label">Playcount</label>
+        <input type="number" class="form-control" id="updatePlaycount">
+      </div>
+      <div class="mb-3">
+        <label for="updateListeners" class="form-label">Listeners</label>
+        <input type="number" class="form-control" id="updateListeners">
+      </div>
+      <div class="mb-3">
+        <label for="updateUrl" class="form-label">URL</label>
+        <input type="text" class="form-control" id="updateUrl">
+      </div>
+      <button type="submit" class="btn btn-warning">Update Artist</button>
+    </form>
+  </div>
+
+  <!-- Delete Form -->
+  <div id="deleteFormContainer" class="container mt-5" style="display:none;">
+    <h3 class="text-center mb-4">Delete Artist</h3>
+    <form id="deleteForm">
+      <div class="mb-3">
+        <label for="deleteMbid" class="form-label">MBID of Artist to Delete</label>
+        <input type="text" class="form-control" id="deleteMbid" required>
+      </div>
+      <button type="submit" class="btn btn-danger">Delete Artist</button>
+    </form>
+  </div>
+
+  <!-- Script Functions -->
   <script>
-    function getall(callback){
+    function getall(callback) {
       $.ajax({
         url: "http://localhost:5000/getartists",
         method: "GET",
         dataType: "json",
-        success: function(result){
-          callback(result);
-        },
-        error: function(xhr, status, error){
+        success: callback,
+        error: function (xhr, status, error) {
           console.log("error: " + status + " msg: " + error);
         }
       });
     }
 
-    function processgetall(artists){
+    function processgetall(artists) {
       const tableBody = $("#artistsTable tbody");
       tableBody.empty();
-
       artists.forEach(artist => {
         const safeName = artist.name.replace(/'/g, "\\'");
-        const row = `
+        tableBody.append(`
           <tr>
             <td><a href="#" onclick="showtopalbums('${safeName}')">${artist.name}</a></td>
             <td>${artist.playcount}</td>
@@ -119,8 +164,7 @@
             <td><a href="${artist.url}" target="_blank">Link</a></td>
             <td>${artist.mbid}</td>
           </tr>
-        `;
-        tableBody.append(row);
+        `);
       });
     }
 
@@ -129,90 +173,137 @@
         url: `http://localhost:5000/topalbums/${encodeURIComponent(artistName)}`,
         method: "GET",
         dataType: "json",
-        success: function(albums) {
+        success: function (albums) {
           const tableBody = $("#albumBody");
           tableBody.empty();
-
           $("#albumtitle").text(`Top Albums for ${artistName}`);
           $("#artisttable").hide();
           $("#albumtable").show();
-
           albums.forEach(album => {
-            const row = `
+            tableBody.append(`
               <tr>
                 <td>${album.name}</td>
                 <td>${album.playcount}</td>
                 <td><a href="${album.url}" target="_blank">Link</a></td>
               </tr>
-            `;
-            tableBody.append(row);
+            `);
           });
-        },
-        error: function(xhr, status, error) {
-          console.log("error: " + status + " msg: " + error);
         }
       });
     }
 
-    function showartists(){
+    function showartists() {
       getall(processgetall);
       $("#artisttable").show();
-      $("#albumtable").hide();
+      $("#albumtable, #createForm, #updateFormContainer, #deleteFormContainer").hide();
       $("#homepageBtn").show();
     }
 
-    function homepage(){
-      $("#artisttable").hide();
-      $("#albumtable").hide();
+    function homepage() {
+      $("#artisttable, #albumtable, #createForm, #updateFormContainer, #deleteFormContainer").hide();
       $("#homepageBtn").hide();
     }
 
-    function backtoartists(){
+    function backtoartists() {
       $("#albumtable").hide();
       $("#artisttable").show();
     }
 
     function showCreateForm() {
       $("#createForm").show();
-      $("#artisttable").hide();
-      $("#albumtable").hide();
+      $("#artisttable, #albumtable, #updateFormContainer, #deleteFormContainer").hide();
     }
 
     function hideCreateForm() {
       $("#createForm").hide();
     }
 
-    $(document).ready(function() {
+    // Form Submissions
+    $(document).ready(function () {
       getall(processgetall);
+
+      // Create
+      $("#artistForm").on("submit", function (e) {
+        e.preventDefault();
+        const artistData = {
+          name: $("#name").val(),
+          playcount: parseInt($("#playcount").val()),
+          listeners: parseInt($("#listeners").val()),
+          url: $("#url").val(),
+          mbid: $("#mbid").val()
+        };
+        $.ajax({
+          url: "http://localhost:5000/createartist",
+          method: "POST",
+          contentType: "application/json",
+          data: JSON.stringify(artistData),
+          success: function () {
+            alert("Artist created successfully!");
+            hideCreateForm();
+            showartists();
+          },
+          error: function (xhr, status, error) {
+            alert("Error creating artist: " + error);
+          }
+        });
+      });
+
+      // Update
+      $("#updateBtn").click(function () {
+        $("#updateFormContainer").toggle();
+        $("#createForm, #deleteFormContainer").hide();
+      });
+
+      $("#updateForm").submit(function (e) {
+        e.preventDefault();
+        const mbid = $("#updateMbid").val().trim();
+        const updateData = {};
+        if ($("#updateName").val()) updateData.name = $("#updateName").val();
+        if ($("#updatePlaycount").val()) updateData.playcount = parseInt($("#updatePlaycount").val());
+        if ($("#updateListeners").val()) updateData.listeners = parseInt($("#updateListeners").val());
+        if ($("#updateUrl").val()) updateData.url = $("#updateUrl").val();
+
+        $.ajax({
+          url: `http://localhost:5000/artist/${mbid}`,
+          method: "PUT",
+          contentType: "application/json",
+          data: JSON.stringify(updateData),
+          success: function () {
+            alert("Artist updated successfully!");
+            $("#updateForm")[0].reset();
+            $("#updateFormContainer").hide();
+            showartists();
+          },
+          error: function (xhr, status, error) {
+            alert("Failed to update artist: " + error);
+          }
+        });
+      });
+
+      // Delete
+      $("#deleteBtn").click(function () {
+        $("#deleteFormContainer").toggle();
+        $("#createForm, #updateFormContainer").hide();
+      });
+
+      $("#deleteForm").submit(function (e) {
+        e.preventDefault();
+        const mbid = $("#deleteMbid").val().trim();
+        $.ajax({
+          url: `http://localhost:5000/deleteartist/${mbid}`,
+          method: "DELETE",
+          success: function (response) {
+            alert(response.message);
+            $("#deleteForm")[0].reset();
+            $("#deleteFormContainer").hide();
+            showartists();
+          },
+          error: function () {
+            alert("Failed to delete artist.");
+          }
+        });
+      });
     });
-
-    $("#artistForm").on("submit", function(e) {
-  e.preventDefault();
-
-  const artistData = {
-    name: $("#name").val(),
-    playcount: parseInt($("#playcount").val()),
-    listeners: parseInt($("#listeners").val()),
-    url: $("#url").val(),
-    mbid: $("#mbid").val()
-  };
-
-  $.ajax({
-    url: "http://localhost:5000/createartist",
-    method: "POST",
-    contentType: "application/json",
-    data: JSON.stringify(artistData),
-    success: function(response) {
-      alert("Artist created successfully!");
-      hideCreateForm();
-      showartists(); // Refresh artist table
-    },
-    error: function(xhr, status, error) {
-      alert("Error creating artist: " + error);
-    }
-  });
-});
-
   </script>
 </body>
 </html>
