@@ -60,7 +60,8 @@ CREATE TABLE albums (
     artist VARCHAR(255),
     playcount INT,
     url VARCHAR(500),
-    artistmbid VARCHAR(36)
+    artistmbid VARCHAR(36),
+    FOREIGN KEY (artistmbid) REFERENCES artists(mbid)
 );
 ```
 
