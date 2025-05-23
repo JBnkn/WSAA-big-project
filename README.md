@@ -39,6 +39,32 @@ WSAA-big-project/
 ## Requirements
 
 
+## MySQL Configuration
+To ensure data is pulled into MySQL from the last.fm API correctly, you can create the relevant tables in your database using the code below:
+
+### Artists
+``` bash
+CREATE TABLE artists (
+    name VARCHAR(255),
+    playcount BIGINT,
+    listeners INT,
+    url VARCHAR(500),
+    mbid VARCHAR(36) PRIMARY KEY
+);
+```
+### Albums
+``` bash
+CREATE TABLE albums (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255),
+    artist VARCHAR(255),
+    playcount INT,
+    url VARCHAR(500),
+    artistmbid VARCHAR(36)
+);
+```
+
+
 ## API Endpoints
 
 ## Potential Improvements
