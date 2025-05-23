@@ -80,3 +80,4 @@ CREATE TABLE albums (
 - https://www.youtube.com/watch?v=KjNXOi4Wqbk
 - https://www.youtube.com/watch?v=ru_YWeOh2kU
 - https://www.w3schools.com/js/js_ajax_intro.asp
+- ChatGPT: I utilised ChatGPT for assistance when I encountered a chunk of code that simply wouldn't work for me, and also to simplify error messages I encountered that I couldn't quite decode the documentation for. A key area I had a challenge with was connecting the backend to the frontend, and ChatGPT was useful at breaking down the steps for me to stitch the whole project together.
