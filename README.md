@@ -37,7 +37,11 @@ WSAA-big-project/
 ```
 
 ## Requirements
+This project used the following Python libraries:
 
+- [Flask](https://flask.palletsprojects.com/en/stable/): framework to create REST API
+- [Flask CORS](https://pypi.org/project/flask-cors/): enables sharing to frontend
+- [MySQL Connector](https://www.mysql.com/products/connector/): connects to MySQL database
 
 ## MySQL Configuration
 To ensure data is pulled into MySQL from the last.fm API correctly (having registered an API account with them), you can create the relevant tables in your database using the code below:
@@ -79,6 +83,12 @@ CREATE TABLE albums (
 - <b>artist mbid: </b> Artist [MusicBrainz Identifier](https://musicbrainz.org/), serves as Foreign Key to connect tables
 
 ## API Endpoints
+
+- <code>GET /getartists</code>: fetches a list of all artists from the database, ordered by descending playcount
+- <code>POST /createartist</code>: creates a new artist using JSON
+- <code>PUT /artist/\<mbid></code>: updates an existing artist using JSON, requires their unique mbid
+- <code>DELETE /deleteartist/\<mbid></code>: deletes an existing artist, requires their unique mbid
+- <code>GET /topalbums/\<artist></code>: fetches the top 10 albums for specified artist, ordered by descending playcount 
 
 ## Potential Improvements
 - Automation: I could implement a scheduled task using <code>cron</code> to automatically retrieve and update top artists, playcounts, and listener data from the Last.fm API on a monthly basis without need for running <code>lastfm-artists.py</code> manually.
