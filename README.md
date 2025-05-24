@@ -11,13 +11,10 @@ This repository contains my big project for the 2025 [Web Services and Applicati
 
 ### Learning Outcomes
 
-> Describe common architectures of web services and web applications.
-
-> Create a simple web service.
-
-> Programmatically access a web service.
-
-> Construct a data set by querying a web service.
+- Describe common architectures of web services and web applications.
+- Create a simple web service.
+- Programmatically access a web service.
+- Construct a data set by querying a web service.
 
 ## Project Description
 [Last.fm](https://www.last.fm/) is a popular online music website that tracks people's song listening habits. Founded in (2002 before the rise on online music streaming), users could initially download a plug-in that would connect to a music playing tool such as iTunes, which would then feed their plays to their last.fm user account, allowing them to see their top artists and listening trends.
@@ -96,10 +93,10 @@ CREATE TABLE albums (
 - This system currently only has CRUD functionality for the Artists DB - I could widen the scope to add these functions for the Albums DB.
 
 ## References
-- https://www.youtube.com/watch?v=AgVqsmz-ZW4
-- https://www.youtube.com/watch?v=F7AK-WzpYdY
-- https://www.last.fm/api/intro
-- https://www.youtube.com/watch?v=KjNXOi4Wqbk
-- https://www.youtube.com/watch?v=ru_YWeOh2kU
-- https://www.w3schools.com/js/js_ajax_intro.asp
-- ChatGPT: I utilised ChatGPT for assistance when I encountered a chunk of code that simply wouldn't work for me, and also to simplify error messages I encountered that I couldn't quite decode the documentation for. A key area I had a challenge with was connecting the backend to the frontend, and ChatGPT was useful at breaking down the steps for me to stitch the whole project together.
+- [A brief Introduction to Flask (Python Web Framework) - A Byte of Code](https://www.youtube.com/watch?v=AgVqsmz-ZW4)
+- [A brilliant introduction to Flask - Pythonist](https://www.youtube.com/watch?v=F7AK-WzpYdY)
+- [Last.fm API Documentation](https://www.last.fm/api/intro)
+- [Consuming REST Web Service in an HTML Page - ChargeAhead](https://www.youtube.com/watch?v=KjNXOi4Wqbk)
+- [JSON Response To HTML Table | Javascript (Ajax) - Dennis Ivy](https://www.youtube.com/watch?v=ru_YWeOh2kU)
+- [AJAX Introduction - W3Schools](https://www.w3schools.com/js/js_ajax_intro.asp)
+- [ChatGPT](https://chat.openai.com/): I used ChatGPT for assistance when I encountered a chunk of code that simply wouldn't work for me, and also to simplify error messages that I couldn't quite decode the documentation for. A key area I had a challenge with was connecting the backend to the frontend, and ChatGPT was useful at breaking down the steps for me to stitch the whole project together.
