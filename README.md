@@ -53,11 +53,11 @@ CREATE TABLE artists (
 );
 ```
 
-- <b>name</b>
-- <b>playcount</b>
-- <b>listeners</b>
-- <b>url</b>
-- <b>mbid</b>
+- <b>name: </b> Artist Name
+- <b>playcount: </b> Total Number of Plays for Artist
+- <b>listeners: </b> Total Number of Listeners for Artist
+- <b>url: </b> Link to Artist's Last.fm Profile
+- <b>mbid: </b> [MusicBrainz Identifier](https://musicbrainz.org/), a unique code for each artist
 
 ### Albums
 ``` bash
@@ -71,12 +71,12 @@ CREATE TABLE albums (
     FOREIGN KEY (artistmbid) REFERENCES artists(mbid)
 );
 ```
-- id
-- name 
-- artist
-- playcount
-- url
-- artist mbid
+- <b>id: </b> Primary Key for Table
+- <b>name: </b> Album Name
+- <b>artist: </b> Album Artist
+- <b>playcount: </b> Total Number of Plays for Album
+- <b>url: </b> Link to Album's Last.fm Profile
+- <b>artist mbid: </b> Artist [MusicBrainz Identifier](https://musicbrainz.org/), serves as Foreign Key to connect tables
 
 ## API Endpoints
 
