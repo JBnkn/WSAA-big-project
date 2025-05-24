@@ -40,7 +40,7 @@ WSAA-big-project/
 
 
 ## MySQL Configuration
-To ensure data is pulled into MySQL from the last.fm API correctly, you can create the relevant tables in your database using the code below:
+To ensure data is pulled into MySQL from the last.fm API correctly (having registered an API account with them), you can create the relevant tables in your database using the code below:
 
 ### Artists
 ``` bash
@@ -52,6 +52,13 @@ CREATE TABLE artists (
     mbid VARCHAR(36) PRIMARY KEY
 );
 ```
+
+- <b>name</b>
+- <b>playcount</b>
+- <b>listeners</b>
+- <b>url</b>
+- <b>mbid</b>
+
 ### Albums
 ``` bash
 CREATE TABLE albums (
@@ -64,7 +71,12 @@ CREATE TABLE albums (
     FOREIGN KEY (artistmbid) REFERENCES artists(mbid)
 );
 ```
-
+- id
+- name 
+- artist
+- playcount
+- url
+- artist mbid
 
 ## API Endpoints
 
